@@ -1,0 +1,14 @@
+TODO:
+
+    [PDF]
+        Image flou
+        Saut de page en plein block
+
+    [Latex]
+        fichier cache ?
+        clé fichier cache
+
+    [Graphviz]
+        ajouter base64 pour les image poour ne pas creer de fichier png
+
+    [Autre]
