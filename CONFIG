@@ -1,0 +1,7 @@
+#
+#
+
+DATA_PATH=/media/data/git/Markdown-extensions/data/
+CODE_CSS_STYLE=monokai_sublime.css
+CSS_NAME=markdown.css
+EXTENSIONS=['latex', "graphviz", "toc", "tables"]
