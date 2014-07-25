@@ -63,7 +63,7 @@ def main():
     # pdfkit.from_file('tt.html', 'tt.pdf', options=options)
 
     HTML('test.html').write_pdf('test.pdf')
-    os.remove("test.html")
+    # os.remove("test.html")
 
 
 if __name__ == "__main__":

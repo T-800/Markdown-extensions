@@ -6,7 +6,7 @@
 <dot>
 digraph a {
     graph [rankdir=LR]
-	0 -> 1 -> 4 -> 3 -> 2 -> 0 [label="b"]
+    0 -> 1 -> 4 -> 3 -> 2 -> 0 [label="b"]
     0 -> 2 [style=bold,label="a"]
     1 -> 2 [label="c"]
     2 -> 3 [label="d"]
@@ -32,6 +32,7 @@ fin test
     public static void main(String[] args){
         System.out.println("Hello");
     }
+    
 
 1. a
 1. b
