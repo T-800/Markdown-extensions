@@ -1,7 +1,8 @@
 #! /usr/bin/python
 
 import markdown
-import pdfkit
+import os
+from weasyprint import HTML
 
 
 def open_config(path=""):
@@ -59,7 +60,10 @@ def main():
         'quiet': ''
     }
 
-    pdfkit.from_file('test.html', 'test.pdf', options=options)
+    # pdfkit.from_file('tt.html', 'tt.pdf', options=options)
+
+    HTML('test.html').write_pdf('test.pdf')
+    os.remove("test.html")
 
 
 if __name__ == "__main__":
