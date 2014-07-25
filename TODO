@@ -3,6 +3,7 @@ TODO:
     [PDF]
         Image flou
         Saut de page en plein block
+        Liens PDF cliquable
 
     [Latex]
         fichier cache ?
@@ -18,8 +19,10 @@ TODO:
         abreviation ?
         Definition ?
 
+    [CSS]
+        Changer le CSS
 
 
-DONE:
 
-    Liens PDF cliquable
+
+problème de rendu pdf si pdfkit pas de lien cliquable mais si weasyprint pas de JS

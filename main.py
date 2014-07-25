@@ -2,6 +2,7 @@
 
 import markdown
 import os
+import pdfkit
 from weasyprint import HTML
 
 
@@ -57,12 +58,14 @@ def main():
 
     # htmltopdf
     options = {
-        'quiet': ''
+        'quiet': '',
+        'enable-internal-links': '',
+        'enable-external-links': ''
     }
 
-    # pdfkit.from_file('tt.html', 'tt.pdf', options=options)
+    pdfkit.from_file('test.html', './ext/test1.pdf', options=options)  # no click link
 
-    HTML('test.html').write_pdf('test.pdf')
+    HTML('test.html').write_pdf('./ext/test2.pdf')  # no Js
     # os.remove("test.html")
 
 
