@@ -2,8 +2,7 @@ TODO:
 
     [PDF]
         Image flou
-        Saut de page en plein block
-        Liens PDF cliquable
+
 
     [Latex]
         fichier cache ?
@@ -13,7 +12,7 @@ TODO:
         ajouter base64 pour les image poour ne pas creer de fichier png
 
     [Autre]
-        Liens PDF cliquable
+
 
     [Extension]
         abreviation ?
@@ -23,6 +22,13 @@ TODO:
         Changer le CSS
 
 
+DONE
 
+    Choix de weasyprint car il resoud le probleme des liens et sauts de pages
+        Saut de page en plein block
+        Liens PDF cliquable
+
+
+PROBLÈME
 
 problème de rendu pdf si pdfkit pas de lien cliquable mais si weasyprint pas de JS
