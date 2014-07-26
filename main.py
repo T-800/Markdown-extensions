@@ -17,7 +17,7 @@ def open_config(path=""):
             conf += [ligne]
 
     for line in conf:
-        line = line.split("=")
+        line = line.split("=", 1)
         if line[0] == "DATA_PATH":
             DATA_PATH = line[1]
         elif line[0] == "CODE_CSS_STYLE":
