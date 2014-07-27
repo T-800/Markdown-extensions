@@ -1,34 +1,65 @@
+"""
+### Markdown-Python-Graphviz
+
+This module is an extention to [Python-Markdown][pymd] which makes it
+possible to embed [Graphviz][gv] syntax into Markdown documents.
+
+### Requirements
+
+Using this module requires:
+   * Python-Markdown
+   * Graphviz (particularly ``dot``)
+
+### Syntax
+
+Wrap Graphviz definitions within a dot/neato/dotty/lefty tag.
+
+An example document:
+
+    This is some text above a graph.
+
+    <dot>
+    digraph a {
+        nodesep=1.0;
+        rankdir=LR;
+        a -> b -> c ->d;
+    }
+    </dot>
+
+    Some other text between two graphs.
+
+    <neato>
+    some graph in neato...
+    </neato>
+
+    This is also some text below a graph.
+
+Note that the opening and closing tags should come at the beginning of
+their lines and should be immediately followed by a newline.
+
+### Usage
+
+    import markdown
+    md = markdown.Markdown(
+            extensions=['graphviz'],
+            extension_configs={'graphviz' : {'DOT','/usr/bin/dot'}}
+    )
+    return md.convert(some_text)
+
+
+[pymd]: http://www.freewisdom.org/projects/python-markdown/ "Python-Markdown"
+[gv]: http://www.graphviz.org/ "Graphviz"
+
+"""
 import markdown
-import os
-import base64
+import re
 import markdown.preprocessors
 import subprocess
 
 
-
-# Defines our basic inline image
-IMG_EXPR = "<img "+ \
-    " src='data:image/svg+xml;base64,%s'>"
-
-
-# Base CSS template
-IMG_CSS = "<style scoped>img.latex-inline { vertical-align: middle; }\
-    </style>\n"
-
-
-class GraphvizPostprocessor(markdown.postprocessors.Postprocessor):
-        """This post processor extension just allows us to further
-        refine, if necessary, the document after it has been parsed."""
-        def run(self, text):
-            # Inline a style for default behavior
-            text = IMG_CSS + text
-            return text
-
-
-
 class GraphvizExtension(markdown.Extension):
     def __init__(self, configs):
-        self.config = {'FORMAT': 'svg', 'BINARY_PATH': "",
+        self.config = {'FORMAT': 'png', 'BINARY_PATH': "",
                        'WRITE_IMGS_DIR': "", "BASE_IMG_LINK_DIR": ""}
         for key, value in configs:
             self.config[key] = value
@@ -41,10 +72,6 @@ class GraphvizExtension(markdown.Extension):
         md.registerExtension(self)
         self.parser = md.parser
         md.preprocessors.add('graphviz', GraphvizPreprocessor(self), '_begin')
-
-         # Our cleanup postprocessing extension
-        md.postprocessors.add('graphviz',
-                              GraphvizPostprocessor(self), ">amp_substitute")
 
 
 class GraphvizPreprocessor(markdown.preprocessors.Preprocessor):
@@ -69,7 +96,7 @@ class GraphvizPreprocessor(markdown.preprocessors.Preprocessor):
                 assert(block == [])
                 in_block = self.extract_format(line)
             elif line in end_tags:
-                new_lines.append(self._graphviz_to_base64(in_block, block))
+                new_lines.append(self.graph(graph_n, in_block, block))
                 graph_n = graph_n + 1
                 block = []
                 in_block = None
@@ -85,11 +112,12 @@ class GraphvizPreprocessor(markdown.preprocessors.Preprocessor):
         assert(format in self.formatters)
         return format
 
-
-
-    def _graphviz_to_base64(self,typed,  lines):
-        """Generates a base64 representation of Graphviz string"""
-
+    def graph(self, n, typed, lines):
+        """
+        Generates a graph from lines and returns a string
+        containing n image link to created graph.
+        """
+        assert(typed in self.formatters)
         cmd = "%s%s -T%s" % (self.graphviz.config["BINARY_PATH"],
                              typed,
                              self.graphviz.config["FORMAT"])
@@ -99,9 +127,15 @@ class GraphvizPreprocessor(markdown.preprocessors.Preprocessor):
         p.stdin.write(bytes("\n".join(lines), 'UTF-8'))
         p.stdin.close()
         p.wait()
-        pp = p.stdout.read()
-        data = base64.b64encode(pp)
-        return IMG_EXPR % data.decode("utf-8")
+        filepath = "%s%s.%s" % (self.graphviz.config["WRITE_IMGS_DIR"], n,
+                                self.graphviz.config["FORMAT"])
+        fout = open(filepath, 'wb')
+        fout.write(p.stdout.read())
+        fout.close()
+        output_path = "%s%s.%s" % (self.graphviz.config["BASE_IMG_LINK_DIR"],
+                                   n, self.graphviz.config["FORMAT"])
+        return "![Graphviz chart %s](%s)" % (n, output_path)
+
 
 def makeExtension(configs=None):
     return GraphvizExtension(configs=configs)

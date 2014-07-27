@@ -1,15 +1,12 @@
 TODO:
 
     [PDF]
-        Image flou
 
 
     [Latex]
         fichier cache ?
         clé fichier cache
 
-    [Graphviz]
-        ajouter base64 pour les images poour ne pas creer de fichier png
 
     [Autre]
         changer le fichier Config
@@ -33,4 +30,11 @@ PROBLÈME
 
 problème de rendu pdf si pdfkit pas de lien cliquable mais si weasyprint pas de JS
 
-Latex Changement image png => svg (images flou)
+[Latex]
+    Changement image png => svg (images flou)
+
+[Graphviz]
+    ajouter base64 pour les images poour ne pas creer de fichier png
+
+[PDF]
+    Image flou
