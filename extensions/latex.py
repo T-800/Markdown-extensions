@@ -29,7 +29,7 @@ from subprocess import call, PIPE
 
 # Defines our basic inline image
 IMG_EXPR = "<img class='latex-inline math-%s' id='%s'" + \
-    " src='data:image/png;base64,%s'>"
+    " src='data:image/svg+xml;base64,%s'>"
 
 
 # Base CSS template
@@ -60,8 +60,8 @@ class LaTeXPreprocessor(markdown.preprocessors.Preprocessor):
         except IOError:
             pass
 
-        self.config = {("general", "preamble"): "", ("dvipng", "args"):
-                       "-q -T tight -bg Transparent -z 9 -D 150",
+        self.config = {("general", "preamble"): "", ("dvisvgm", "args"):
+                       "--no-fonts",
                        ("delimiters", "text"): "%", ("delimiters", "math"):
                        "$$", ("delimiters", "preamble"): "%%"}
 
@@ -120,10 +120,10 @@ class LaTeXPreprocessor(markdown.preprocessors.Preprocessor):
         # Run dvipng on the generated DVI file. Use tight bounding box.
         # Magnification is set to 1200
         dvi = "%s.dvi" % path
-        png = "%s.png" % path
+        png = "%s.svg" % path
 
         # Extract the image
-        cmd = "dvipng %s %s -o %s" % (self.config[("dvipng", "args")],
+        cmd = "dvisvgm %s %s -o %s" % (self.config[("dvisvgm", "args")],
                                       dvi, png)
         status = call(cmd.split(), stdout=PIPE)
 
@@ -145,7 +145,7 @@ class LaTeXPreprocessor(markdown.preprocessors.Preprocessor):
 
     def _cleanup(self, path, err=False):
         # don't clean up the log if there's an error
-        extensions = ["", ".aux", ".dvi", ".png", ".log"]
+        extensions = ["", ".aux", ".png", ".log", ".dvi", ".svg"]
         if err:
             extensions.pop()
 

@@ -9,10 +9,10 @@ TODO:
         clé fichier cache
 
     [Graphviz]
-        ajouter base64 pour les image poour ne pas creer de fichier png
+        ajouter base64 pour les images poour ne pas creer de fichier png
 
     [Autre]
-
+        changer le fichier Config
 
     [Extension]
         abreviation ?
@@ -32,3 +32,5 @@ DONE
 PROBLÈME
 
 problème de rendu pdf si pdfkit pas de lien cliquable mais si weasyprint pas de JS
+
+Latex Changement image png => svg (images flou)

@@ -67,7 +67,7 @@ def main():
     #                    options=options)  # no click link
 
     HTML('test.html').write_pdf('./ext/test.pdf')  # no Js
-    os.remove("test.html")
+#    os.remove("test.html")
 
 
 if __name__ == "__main__":
