@@ -1,8 +1,16 @@
 [TOC]
 
 
-# Test 1
 
+# Test 1
+%
+\begin{align*}
+(a+b)^3 &= (a+b)^2(a+b)\\
+&=(a^2+2ab+b^2)(a+b)\\
+&=(a^3+2a^2b+ab^2)+(a^2b+2ab^2+b^3)\\
+&=a^3+3a^2b+3ab^2+b^3
+\end{align*}
+%
 <dot>
 digraph a {
     graph [rankdir=LR]
@@ -149,3 +157,26 @@ $$
 s:=\frac{a+b+c}{2}$}
 \end{picture}
 $$
+
+
+%\begin{equation}
+\Re{z} =\frac{n\pi \dfrac{\theta +\psi}{2}}{
+\left(\dfrac{\theta +\psi}{2}\right)^2 + \left( \dfrac{1}{2}
+\log \left\lvert\dfrac{B}{A}\right\rvert\right)^2}.
+\end{equation}
+
+\begin{equation}
+\boxed{\eta \leq C(\delta(\eta) +\Lambda_M(0,\delta))}
+\end{equation}
+
+\begin{equation}\label{first}
+a=b+c
+\end{equation}
+
+\begin{subequations}\label{grp}
+\begin{align}
+a&=b+c\label{second}\\
+d&=e+f+g\label{third}\\
+h&=i+j\label{fourth}
+\end{align}
+\end{subequations}%

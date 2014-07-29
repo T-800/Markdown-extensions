@@ -1,5 +1,4 @@
 import markdown
-import os
 import base64
 import markdown.preprocessors
 import subprocess
@@ -28,8 +27,7 @@ class GraphvizPostprocessor(markdown.postprocessors.Postprocessor):
 
 class GraphvizExtension(markdown.Extension):
     def __init__(self, configs):
-        self.config = {'FORMAT': 'svg', 'BINARY_PATH': "",
-                       'WRITE_IMGS_DIR': "", "BASE_IMG_LINK_DIR": ""}
+        self.config = {'FORMAT': 'svg'}
         for key, value in configs:
             self.config[key] = value
 
@@ -90,12 +88,9 @@ class GraphvizPreprocessor(markdown.preprocessors.Preprocessor):
     def _graphviz_to_base64(self,typed,  lines):
         """Generates a base64 representation of Graphviz string"""
 
-        cmd = "%s%s -T%s" % (self.graphviz.config["BINARY_PATH"],
-                             typed,
-                             self.graphviz.config["FORMAT"])
+        cmd = "%s -T%s" % (typed, self.graphviz.config["FORMAT"])
         p = subprocess.Popen(cmd, shell=True, stdin=subprocess.PIPE,
                              stdout=subprocess.PIPE, close_fds=True)
-        """(child_stdin, child_stdout) = (p.stdin, p.stdout)"""
         p.stdin.write(bytes("\n".join(lines), 'UTF-8'))
         p.stdin.close()
         p.wait()

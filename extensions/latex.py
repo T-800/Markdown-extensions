@@ -73,7 +73,7 @@ class LaTeXPreprocessor(markdown.preprocessors.Preprocessor):
             for sec in cfgfile.sections():
                 for opt in cfgfile.options(sec):
                     self.config[(sec, opt)] = cfgfile.get(sec, opt)
-        except ConfigParser.NoSectionError:
+        except configparser.NoSectionError:
             pass
 
         def build_regexp(delim):
