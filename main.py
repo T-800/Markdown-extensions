@@ -65,10 +65,8 @@ def main():
 
     # pdfkit.from_file('test.html', './ext/test1.pdf',
     #                    options=options)  # no click link
-
-    HTML('test.html').write_pdf('./ext/test.pdf')  # no Js
-#    os.remove("test.html")
-
+    HTML('test.html').write_pdf('./ext/tt.pdf')  # no Js
+    # os.remove("test.html")
 
 if __name__ == "__main__":
     main()

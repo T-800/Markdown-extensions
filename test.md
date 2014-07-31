@@ -37,6 +37,7 @@ $$
 
 fin test
 
+
     public static void main(String[] args){
         System.out.println("Hello");
     }
@@ -180,3 +181,10 @@ d&=e+f+g\label{third}\\
 h&=i+j\label{fourth}
 \end{align}
 \end{subequations}%
+
+Apple
+:   Pomaceous fruit of plants of the genus Malus in
+    the family Rosaceae.
+
+Orange
+:   The fruit of an evergreen tree of the genus Citrus.

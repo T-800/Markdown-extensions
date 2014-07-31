@@ -1,60 +1,114 @@
-$$x=\frac{1+y}{1+2z^2}$$
+LS4 13/02/2014
+Anne Micheli   anne.micheli@liafa.univ-paris-diderot.fr
 
-$$x=\frac{1+y}{1+2z^2}$$
+[TOC]
 
-$$\int_0^\infty e^{-x^2} dx=\frac{\sqrt{\pi}}{2}$$
+#Les Uplets (Tuple) :
 
-$$\displaystyle \int_0^\infty e^{-x^2} dx$$
+This is [an example](http://example.com/ "Title") inline link.
 
-$$
- \frac{1}{\displaystyle 1+
-   \frac{1}{\displaystyle 2+
-   \frac{1}{\displaystyle 3+x}}} +
- \frac{1}{1+\frac{1}{2+\frac{1}{3+x}}}
-$$
+Collection d'objets qui peuvent être distincts non mutable
 
-$$\int \!\! \int f(x,y)\,\mathrm{d}x\mathrm{d}y$$
+##Déclaration :
+    >>> u = 18, "salut", '4', ['a', 3]
+    >>> u[1]                                           # renvoi "salut"
 
-$$
- \mathop{\int \!\!\! \int}_{\mathbf{x} \in \mathbf{R}^2}
- \! \langle \mathbf{x},\mathbf{y}\rangle
- \,d\mathbf{x}
-$$
+On peut itérer sur un uplet
 
-$$ x_1 = a+b \mbox{ and } x_2=a-b $$
+    >>> type(u[3])                                     # renvoi "list"
+    >>> u[3][0]                                        # renvoi 'a'
 
-$$ x_1 = a+b ~~\mbox{and}~~ x_2=a-b $$
+#Les ensembles (set):
+
+Collection non ordonnée d'objet non mutable (mais on peut modifier l'ensemble) de types distincts. Tous les Objets de l'ensemble sont distincts.
+
+##Déclaration :
+    >>> s = {1, 2, 5, 3, 7}
+    >>> s = set()
+    >>> s                                              # renvoi set()
+
+    >>> s2 = set(['a', 4, 18, 'bonjour'])
+    >>> s2                                             # {'a', 4, 18, 'bonjour'}
+
+    >>> s3 = set([(1, 2, 3)])
+    >>> s3                                             # {(1,2,3)}
+
+On peut modifier un ensemble :
+
+    >>> s4.add(4)
+    >>> s4.remove(4)
 
 
-$$\left] 0,1
-\right[
- + \lceil x \rfloor - \langle x,y\rangle$$
+    >>> 2 in s4                                  # True
+    >>> 'bonjour' not in s4                      # True
 
-$$
-{n+1\choose k} = {n\choose k} + {n \choose k-1}
-$$
+On peut réaliser
+###l'union de deux ensemble : union, |
 
-$$
-|x| = \left\{ \begin{array}{rl}
- -x &\mbox{ if $x<0$} \\
-  x &\mbox{ otherwise}
-       \end{array} \right.
-$$
+    >>> s = s1.union(s2)
+    >>> s = s1 | s2
 
-$$
-F(x,y)=0 ~~\mbox{and}~~
-\left| \begin{array}{ccc}
-  F''_{xx} & F''_{xy} &  F'_x \\
-  F''_{yx} & F''_{yy} &  F'_y \\
-  F'_x     & F'_y     & 0
-  \end{array}\right| = 0
-$$
+###l'intersection : intersection, &
 
-$$
-\underbrace{n(n-1)(n-2)\dots(n-m+1)}_
-{\mbox{total of $m$ factors}}
-$$
+    >>> s = s1.intersection(s2)
+    >>> s = s1 & s2
 
-$$\hat{x}$, $\check{x}$, $\tilde{a}$,
-$\bar{\ell}$, $\dot{y}$, $\ddot{y}$,
-$\vec{z_1}$, $\vec{z}_1$$
+###la diference: difference, -
+
+    >>> s = s1.difference(s2)
+    >>> s = s1 - s2
+
+
+###la diference symetrique (ou éclusif): difference, -
+
+    >>> s = s1.symmetric_difference(s2)
+    >>> s = s1 ^ s2
+
+
+#Les dictionnaires (dictionary) :
+Un dico est un ensemble de couple clé, valeur où :
+- les clés sont des types non mutable
+- les valeur sont de n'importe quel type
+
+##Déclaration:
+    >>> dico = {'ensemble': {'set', 'together'}, 'uplet': 'tuple'}
+    >>> dico = dict()
+    >>> dico = {}
+
+    >>> dico = dict(zip(['ensemble', 'uplet'], [{'set', 'together'},'tuple']))
+    >>> dico                # {'uplet': 'tuple', 'ensemble': {'set', 'together'}}
+
+    >>> dico = {c:v for (c,v) in zip(range(4), ['a','b','c','d'])}
+    >>> dico                # {0: 'a', 1: 'b', 2: 'c', 3: 'd'}
+
+### Attention à la taille des listes
+
+    >>> dico = {c:v for (c,v) in zip(range(5), ['a','b','c','d'])}
+    >>> dico                # {0: 'a', 1: 'b', 2: 'c', 3: 'd'}
+
+    >>> dico = {c:v for (c,v) in zip(range(4), ['a','b','c','d','e'])}
+    >>> dico                # {0: 'a', 1: 'b', 2: 'c', 3: 'd'}
+
+
+##Acces et modification :
+
+    >>> dico ['uplet']                     # tuple
+    >>> dico ['liste'] = 'list'            # ajout le couple liste:list
+    >>> dico ['ensemble'] = 'ens'          #modifie l'entrée ensemble
+
+##Les vues (views) :
+la vue dict_keys est un objet faisant référence aux clés d'un dictionnaire
+
+    >>> dico.keys()                  # objet dict_keys('ensemble', 'uplet','lste')
+
+la vue dict_values est un objet faisant référence aux valeurs d'un dictionnaire
+
+    >>> dico.values()                # objet dict_values('ens','tuple','lst')
+
+la vue dict_items est un objet faisant référence aux couples clés,valeurs d'un dictionnaire
+
+    >>> dico.items()                  # objet dict_items(('ensemble','ens'),('uplet','tuple'),(liste,'lst'))
+
+Les opérateurs ensemblistes `|,&,-,^` s'applique aussi aux vues
+
+***les vues sont des objets itérables. De plus si on modifie le dictionnaire correspondant, les vues sont modifiers et inversement.***
