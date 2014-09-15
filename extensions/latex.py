@@ -32,11 +32,6 @@ IMG_EXPR = "<img class='latex-inline math-%s' id='%s'" + \
     " src='data:image/svg+xml;base64,%s'>"
 
 
-# Base CSS template
-IMG_CSS = "<style scoped>img.latex-inline { vertical-align: middle; }\
-    </style>\n"
-
-
 class LaTeXPreprocessor(markdown.preprocessors.Preprocessor):
     # These are our cached expressions that are stored in latex.cache
     cached = {}
@@ -223,7 +218,6 @@ class LaTeXPostprocessor(markdown.postprocessors.Postprocessor):
         refine, if necessary, the document after it has been parsed."""
         def run(self, text):
             # Inline a style for default behavior
-            text = IMG_CSS + text
             return text
 
 

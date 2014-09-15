@@ -1,9 +1,17 @@
 #! /usr/bin/python
 
 import markdown
+import sys
 import os
 import pdfkit
 from weasyprint import HTML
+from MarkdownHighlight.highlight import HighlightExtension
+
+
+def file_exist(fichier):
+
+    return (os.path.exists(os.path.expanduser(fichier)) and not os.path.isdir(os.path.expanduser(fichier)))
+
 
 
 def open_config(path=""):
@@ -29,21 +37,20 @@ def open_config(path=""):
     return DATA_PATH, CODE_CSS_STYLE, CSS_NAME, EXTENSIONS
 
 
-def main():
-    ficIn = open("test.md", 'r')
+def main(pathIn, pathOut):
+    ficIn = open(pathIn, 'r')
     txt = ficIn.read()
     ficIn.close()
     ficOut = open("test.html", 'w')
-
     DATA_PATH, CODE_CSS_STYLE, CSS_NAME, EXTENSIONS =\
-        open_config("CONFIG")
+        open_config(os.path.expanduser('~/.data/CONFIG'))
 
     header = '''
     <head>
         <meta charset='UTF-8'>
-        <link rel='stylesheet' href="''' + DATA_PATH + "CSS/" + CSS_NAME + '''"/>
-        <link rel="stylesheet" href="''' + DATA_PATH + "CSS/highlight/styles/" + CODE_CSS_STYLE + '''"/>
-        <script src="''' + DATA_PATH + '''CSS/highlight/highlight.pack.js"></script>
+        <link rel='stylesheet' href="''' + os.path.expanduser(DATA_PATH) + "CSS/" + CSS_NAME + '''"/>
+        <link rel="stylesheet" href="''' + os.path.expanduser(DATA_PATH) + "CSS/highlight/styles/" + CODE_CSS_STYLE + '''"/>
+        <script src="''' + os.path.expanduser(DATA_PATH) + '''CSS/highlight/highlight.pack.js"></script>
         <script>hljs.initHighlightingOnLoad();</script>
     </head>
     <body>
@@ -65,8 +72,14 @@ def main():
 
     # pdfkit.from_file('test.html', './ext/test1.pdf',
     #                    options=options)  # no click link
-    HTML('test.html').write_pdf('./ext/tt.pdf')  # no Js
-    # os.remove("test.html")
+    HTML('test.html').write_pdf(pathOut)  # no Js
+    os.remove("test.html")
 
 if __name__ == "__main__":
-    main()
+    if(len(sys.argv) == 3):
+        if (file_exist(sys.argv[1]) and sys.argv[2].endswith(".pdf")):
+            main(sys.argv[1], sys.argv[2])
+        else:
+            print("Le fichier"+sys.argv[1]+" n'éxiste pas ")
+    else:
+        print("Entrer un fichier en argument")

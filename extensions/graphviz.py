@@ -4,25 +4,16 @@ import markdown.preprocessors
 import subprocess
 
 
-
 # Defines our basic inline image
-IMG_EXPR = "<img "+ \
+IMG_EXPR = "<img " + \
     " src='data:image/svg+xml;base64,%s'>"
-
-
-# Base CSS template
-IMG_CSS = "<style scoped>img.latex-inline { vertical-align: middle; }\
-    </style>\n"
 
 
 class GraphvizPostprocessor(markdown.postprocessors.Postprocessor):
         """This post processor extension just allows us to further
         refine, if necessary, the document after it has been parsed."""
         def run(self, text):
-            # Inline a style for default behavior
-            text = IMG_CSS + text
             return text
-
 
 
 class GraphvizExtension(markdown.Extension):
@@ -40,7 +31,7 @@ class GraphvizExtension(markdown.Extension):
         self.parser = md.parser
         md.preprocessors.add('graphviz', GraphvizPreprocessor(self), '_begin')
 
-         # Our cleanup postprocessing extension
+        # Our cleanup postprocessing extension
         md.postprocessors.add('graphviz',
                               GraphvizPostprocessor(self), ">amp_substitute")
 
@@ -83,9 +74,7 @@ class GraphvizPreprocessor(markdown.preprocessors.Preprocessor):
         assert(format in self.formatters)
         return format
 
-
-
-    def _graphviz_to_base64(self,typed,  lines):
+    def _graphviz_to_base64(self, typed, lines):
         """Generates a base64 representation of Graphviz string"""
 
         cmd = "%s -T%s" % (typed, self.graphviz.config["FORMAT"])
@@ -97,6 +86,7 @@ class GraphvizPreprocessor(markdown.preprocessors.Preprocessor):
         pp = p.stdout.read()
         data = base64.b64encode(pp)
         return IMG_EXPR % data.decode("utf-8")
+
 
 def makeExtension(configs=None):
     return GraphvizExtension(configs=configs)
