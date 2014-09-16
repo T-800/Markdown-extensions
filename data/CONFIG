@@ -1,7 +1,7 @@
 #
 #
 
-DATA_PATH=.data/
+DATA_PATH=~/.data/
 CODE_CSS_STYLE=monokai_sublime.css
 CSS_NAME=markdown.css
-EXTENSIONS=['latex', "graphviz", "toc", "tables", "def_list", "fenced_code","highlight"]
+EXTENSIONS=['latex', "graphviz", "toc", "tables", "def_list", "fenced_code","highlight", "sane_lists"]

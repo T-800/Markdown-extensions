@@ -15,20 +15,20 @@ Math
 $$\sqrt{2} \sin x$$,
 
 Code
+
     public static void main(String[] args){
         System.out.println("Hello");
     }
 
 
 Liste
-1. a
-1. b
-1. c
 
+1. Ordered item 1
+1. Ordered item 2
 
-* a
-* b
-* c
+* Unordered item 1
+* Unordered item 2
+
 
 # Titre 2
 
@@ -36,6 +36,7 @@ Liste
 ## Sous-titre 1
 
 Table
+
 First Header  | Second Header
 ------------- | -------------
 Content Cell  | Content Cell
