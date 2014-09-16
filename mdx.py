@@ -52,16 +52,7 @@ def modepdf(fichiers):
     else:
         pathOut = fichiers[0][:-3]+".pdf"
 
-    # htmltopdf
-    options = {
-        'quiet': '',
-        'enable-internal-links': '',
-        'enable-external-links': ''
-    }
-
-    # pdfkit.from_file('test.html', './ext/test1.pdf',
-    #                    options=options)  # no click link
-    HTML(tmp).write_pdf(pathOut)  # no Js
+    HTML(tmp).write_pdf(pathOut)
     os.remove(tmp)
 
 
