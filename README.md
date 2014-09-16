@@ -21,6 +21,7 @@ Module a installer (pip install):
 * weasyprint
 * MarkdownHighlight.highlight
 
+```
     git clone https://github.com/T-800/Markdown-extensions.git
 
     cp data ~/.data
@@ -29,7 +30,8 @@ Module a installer (pip install):
 
     sudo extensions/* /usr/lib/python3.4/site-packages/markdown/extensions/
 
-
+```
 # Usage
-
+```
     mdx fichier.md fichier.pdf
+```
