@@ -4,9 +4,12 @@ Markdown-extensions
 Script Python qui utilise le module markdown de python3 pour tranformer un fichier mardown en pdf
 
 Module ajouter :
-* Table des matière
-* Graph
-* Math
+* latex
+* graphviz
+* table des matières
+* tables
+* definition
+* highlight"
 
 # Install
 
@@ -18,11 +21,7 @@ Module a installer (pip install):
 * weasyprint
 * MarkdownHighlight.highlight
 
-
-
-Copier le dossier data dans le home sous le nom .data et mettre le fichier config
-
-    cp CONFIG data/
+    git clone https://github.com/T-800/Markdown-extensions.git
 
     cp data ~/.data
 

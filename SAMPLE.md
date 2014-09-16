@@ -1,7 +1,7 @@
 [TOC]
 
 # Titre 1
-Graph
+???Graph???
 
 <dot>
 digraph a {
@@ -25,13 +25,17 @@ Liste
 1. b
 1. c
 
+
+* a
+* b
+* c
+
 # Titre 2
 
 
 ## Sous-titre 1
 
 Table
-
 First Header  | Second Header
 ------------- | -------------
 Content Cell  | Content Cell
