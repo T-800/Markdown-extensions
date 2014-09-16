@@ -3,15 +3,14 @@
 import markdown
 import sys
 import os
-import pdfkit
-from weasyprint import HTML
 from MarkdownHighlight.highlight import HighlightExtension
+from weasyprint import HTML
 
 
 def file_exist(fichier):
 
-    return (os.path.exists(os.path.expanduser(fichier)) and not os.path.isdir(os.path.expanduser(fichier)))
-
+    return (os.path.exists(os.path.expanduser(fichier)) and not
+            os.path.isdir(os.path.expanduser(fichier)))
 
 
 def open_config(path=""):
@@ -37,13 +36,46 @@ def open_config(path=""):
     return DATA_PATH, CODE_CSS_STYLE, CSS_NAME, EXTENSIONS
 
 
-def main(pathIn, pathOut):
-    ficIn = open(pathIn, 'r')
+def modepdf(fichiers):
+    if not fichiers[0].endswith(".md"):
+        aide()
+        return
+
+    tmp = modehtml([fichiers[0], "tmp.html"])
+
+    ficIn = open(tmp, 'r')
     txt = ficIn.read()
     ficIn.close()
-    ficOut = open("test.html", 'w')
+
+    if (len(fichiers) > 1):
+        pathOut = fichiers[1]
+    else:
+        pathOut = fichiers[0][:-3]+".pdf"
+
+    # htmltopdf
+    options = {
+        'quiet': '',
+        'enable-internal-links': '',
+        'enable-external-links': ''
+    }
+
+    # pdfkit.from_file('test.html', './ext/test1.pdf',
+    #                    options=options)  # no click link
+    HTML(tmp).write_pdf(pathOut)  # no Js
+    os.remove(tmp)
+
+
+def modehtml(fichiers):
+    if not fichiers[0].endswith(".md"):
+        aide()
+        return
+
     DATA_PATH, CODE_CSS_STYLE, CSS_NAME, EXTENSIONS =\
         open_config(os.path.expanduser('~/.data/CONFIG'))
+
+    ficIn = open(fichiers[0], 'r')
+    txt = ficIn.read()
+    ficIn.close()
 
     header = '''
     <head>
@@ -55,6 +87,11 @@ def main(pathIn, pathOut):
     </head>
     <body>
         '''
+    if (len(fichiers) > 1):
+        pathOut = fichiers[1]
+    else:
+        pathOut = fichiers[0][:-3]+".html"
+    ficOut = open(pathOut, 'w')
     ficOut.write(header)
 
     md = markdown.Markdown(extensions=EXTENSIONS)
@@ -62,24 +99,27 @@ def main(pathIn, pathOut):
     ficOut.write(md.convert(txt))
     ficOut.write('''</body>''')
     ficOut.close()
+    os.remove("latex.cache")
+    return pathOut
 
-    # htmltopdf
-    options = {
-        'quiet': '',
-        'enable-internal-links': '',
-        'enable-external-links': ''
-    }
 
-    # pdfkit.from_file('test.html', './ext/test1.pdf',
-    #                    options=options)  # no click link
-    HTML('test.html').write_pdf(pathOut)  # no Js
-    os.remove("test.html")
+def args(arg):
+    if len(arg) < 0:
+        aide()
+        return
+    print(arg)
+    if arg[0].startswith("-") and len(arg) > 1:
+        if arg[0] == "-h" or arg[0] == "--help":
+            aide()
+        elif arg[0] == "-w" or arg[0] == "--html":
+            modehtml(arg[1:])
+
+    elif not arg[0].startswith("-"):
+        modepdf(arg)
+
+    else:
+        aide()
+
 
 if __name__ == "__main__":
-    if(len(sys.argv) == 3):
-        if (file_exist(sys.argv[1]) and sys.argv[2].endswith(".pdf")):
-            main(sys.argv[1], sys.argv[2])
-        else:
-            print("Le fichier"+sys.argv[1]+" n'éxiste pas ")
-    else:
-        print("Entrer un fichier en argument")
+    args(sys.argv[1:])

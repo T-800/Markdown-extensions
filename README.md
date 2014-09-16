@@ -26,12 +26,31 @@ Module a installer (pip install):
 
     cp data ~/.data
 
-    sudo cp ./main.py /usr/bin/mdx
+    sudo cp ./mdx.py /usr/bin/mdx
 
-    sudo extensions/* /usr/lib/python3.4/site-packages/markdown/extensions/
+    sudo cp extensions/* /usr/lib/python3.4/site-packages/markdown/extensions/
 
 ```
 # Usage
+
+## Mode pdf
+
 ```
-    mdx fichier.md fichier.pdf
+    mdx fichier.md [out.pdf]
 ```
+
+Le fichier ```out.pdf``` est optionnel. s'il n'est pas mentioné le fichier de sortie aura le meme nom que le fichier d'entré
+
+
+## Mode html
+
+```
+    mdx -w fichier.md [out.html]
+```
+
+
+```
+    mdx --html fichier.md [out.html]
+```
+
+Le fichier ```out.html``` est optionnel. s'il n'est pas mentioné le fichier de sortie aura le meme nom que le fichier d'entré
