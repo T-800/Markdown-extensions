@@ -2,6 +2,8 @@ TODO:
 
     [PDF]
 
+	[Extension]
+        abreviation ?
 
     [Latex]
         fichier cache ?
@@ -20,19 +22,13 @@ TODO:
 
 
 
+DONE:
+
+Choix de weasyprint car il resoud le probleme des liens et sauts de pages en plein block et liens PDF cliquable mais pas de JS
 
 
-DONE
-
-    Choix de weasyprint car il resoud le probleme des liens et sauts de pages
-        Saut de page en plein block
-        Liens PDF cliquable
-
-
-PROBLÈME
-
-problème de rendu pdf si pdfkit pas de lien cliquable mais si weasyprint pas de JS
-
+[Extension]
+        Definition ?
 [Latex]
     Changement image png => svg (images flou)
 
