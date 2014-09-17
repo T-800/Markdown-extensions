@@ -90,7 +90,8 @@ def modehtml(fichiers):
     ficOut.write(md.convert(txt))
     ficOut.write('''</body>''')
     ficOut.close()
-    os.remove("latex.cache")
+    if file_exist("latex.cache"):
+        os.remove("latex.cache")
     return pathOut
 
 
