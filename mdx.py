@@ -99,7 +99,6 @@ def args(arg):
     if len(arg) < 0:
         aide()
         return
-    print(arg)
     if arg[0].startswith("-") and len(arg) > 1:
         if arg[0] == "-h" or arg[0] == "--help":
             aide()
