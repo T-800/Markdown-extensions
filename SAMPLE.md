@@ -7,6 +7,8 @@
 digraph a {
     graph [rankdir=LR]
     0 -> 1 [label="b"]
+    1 -> 0 -> 2 -> 2 [label="a"]
+    3 -> 0 -> 3 -> 1 [label="c"]
     0 [color=blue]
 }
 </dot>

@@ -5,6 +5,8 @@ import sys
 import os
 from MarkdownHighlight.highlight import HighlightExtension
 from weasyprint import HTML
+import subprocess
+
 
 
 def file_exist(fichier):
@@ -52,6 +54,8 @@ def modepdf(fichiers):
     else:
         pathOut = fichiers[0][:-3]+".pdf"
 
+    # status = subprocess.call("wkhtmltopdf -L 5 -T 10 " + str(tmp) +
+    #                         " "+str(pathOut), shell=True)
     HTML(tmp).write_pdf(pathOut)
     os.remove(tmp)
 
@@ -72,11 +76,14 @@ def modehtml(fichiers):
     <head>
         <meta charset='UTF-8'>
         <link rel='stylesheet' href="''' + os.path.expanduser(DATA_PATH) + "CSS/" + CSS_NAME + '''"/>
-        <link rel="stylesheet" href="''' + os.path.expanduser(DATA_PATH) + "CSS/highlight/styles/" + CODE_CSS_STYLE + '''"/>
-        <script src="''' + os.path.expanduser(DATA_PATH) + '''CSS/highlight/highlight.pack.js"></script>
-        <script>hljs.initHighlightingOnLoad();</script>
+        <link href="''' + os.path.expanduser(DATA_PATH) + '''CSS/prettify/src/prettify.css" type="text/css" rel="stylesheet" />
+        <script type="text/javascript" src="''' + os.path.expanduser(DATA_PATH) + '''CSS/prettify/src/prettify.js"></script>
+
+
+
+
     </head>
-    <body>
+    <body onload="prettyPrint()">
         '''
     if (len(fichiers) > 1):
         pathOut = fichiers[1]

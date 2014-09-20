@@ -19,7 +19,11 @@ Module ajouter :
 Module a installer (pip install):
 * markdown
 * weasyprint
-* MarkdownHighlight.highlight
+* MarkdownHighlight
+* html5lib
+* tinyCSS
+* CSSselect
+* LXML
 
 ```
     git clone https://github.com/T-800/Markdown-extensions.git
