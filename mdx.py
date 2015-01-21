@@ -8,7 +8,6 @@ from weasyprint import HTML
 import subprocess
 
 
-
 def file_exist(fichier):
 
     return (os.path.exists(os.path.expanduser(fichier)) and not
@@ -35,6 +34,7 @@ def open_config(path=""):
             CSS_NAME = line[1]
         elif line[0] == "EXTENSIONS":
             EXTENSIONS = eval(line[1])
+    print(EXTENSIONS)
     return DATA_PATH, CODE_CSS_STYLE, CSS_NAME, EXTENSIONS
 
 
@@ -75,15 +75,27 @@ def modehtml(fichiers):
     header = '''
     <head>
         <meta charset='UTF-8'>
+        <!--<base href="''' + os.path.expanduser(DATA_PATH) + '''CSS/"  target="_blank">-->
+
+        <!--
         <link rel='stylesheet' href="''' + os.path.expanduser(DATA_PATH) + "CSS/" + CSS_NAME + '''"/>
         <link href="''' + os.path.expanduser(DATA_PATH) + '''CSS/prettify/src/prettify.css" type="text/css" rel="stylesheet" />
         <script type="text/javascript" src="''' + os.path.expanduser(DATA_PATH) + '''CSS/prettify/src/prettify.js"></script>
+        -->
 
+        <link rel='stylesheet' href="''' + os.path.expanduser(DATA_PATH) + "CSS/" + CSS_NAME + '''"/>
+        <link href="''' + os.path.expanduser(DATA_PATH) + '''CSS/highlight2/styles/monokai.css" type="text/css"
 
+        <!--
+        <link rel='stylesheet' href="''' + CSS_NAME + '''"/>
+        <!-- <link rel="stylesheet" href="highlight2/src/styles/monokai.css">
+        -->
 
+        <script src="''' + os.path.expanduser(DATA_PATH) + '''CSS/highlight2/build/highlight.pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
 
     </head>
-    <body onload="prettyPrint()">
+    <body >
         '''
     if (len(fichiers) > 1):
         pathOut = fichiers[1]

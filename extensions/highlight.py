@@ -20,8 +20,8 @@ class HighlightExtension(Extension):
         md.inlinePatterns.add('mark', mark_tag, '_begin')
 
 
-def makeExtension(configs=None):
-    return HighlightExtension(configs)
+def makeExtension(*args, **kwargs):
+    return HighlightExtension(*args, **kwargs)
 
 if __name__ == "__main__":
     import doctest

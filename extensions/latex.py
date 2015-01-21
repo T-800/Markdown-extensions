@@ -57,7 +57,7 @@ class LaTeXPreprocessor(markdown.preprocessors.Preprocessor):
 
         self.config = {("general", "preamble"): "", ("dvisvgm", "args"):
                        "--no-fonts",
-                       ("delimiters", "text"): "%", ("delimiters", "math"):
+                       ("delimiters", "text"): "%%%", ("delimiters", "math"):
                        "$$", ("delimiters", "preamble"): "%%"}
 
         try:
@@ -232,6 +232,6 @@ class MarkdownLatex(markdown.Extension):
                               LaTeXPostprocessor(self), ">amp_substitute")
 
 
-def makeExtension(configs=None):
+def makeExtension(*args, **kwargs):
     """Wrapper for a MarkDown extension"""
-    return MarkdownLatex(configs=configs)
+    return MarkdownLatex(*args, **kwargs)

@@ -17,10 +17,8 @@ class GraphvizPostprocessor(markdown.postprocessors.Postprocessor):
 
 
 class GraphvizExtension(markdown.Extension):
-    def __init__(self, configs):
+    def __init__(self):
         self.config = {'FORMAT': 'svg'}
-        for key, value in configs:
-            self.config[key] = value
 
     def reset(self):
         pass
@@ -88,5 +86,10 @@ class GraphvizPreprocessor(markdown.preprocessors.Preprocessor):
         return IMG_EXPR % data.decode("utf-8")
 
 
+def makeExtension(*args, **kwargs):
+    """Wrapper for a MarkDown extension"""
+    return GraphvizExtension(*args, **kwargs)
+"""
 def makeExtension(configs=None):
     return GraphvizExtension(configs=configs)
+"""

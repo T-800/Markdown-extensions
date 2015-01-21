@@ -135,7 +135,7 @@ class CodeHilite(object):
             class_str = ''
             if classes:
                 class_str = ' class="%s"' % ' '.join(classes)
-            return '<pre class="prettyprint linenums"><code%s>%s</code></pre>\n'% \
+            return '<pre><code class="lineNumbers" %s>%s</code></pre>\n'% \
                         (self.css_class, class_str, txt)
 
     def _parseHeader(self):
