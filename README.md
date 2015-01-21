@@ -12,7 +12,7 @@ Module ajouter :
 * highlight"
 
 # Install
-
+##All
 * graphviz (voir: http://www.graphviz.org/)
 * latex
 
@@ -20,15 +20,18 @@ Module a installer (pip install):
 * markdown
 * weasyprint
 * MarkdownHighlight
+
+##Mac
 * html5lib
 * tinyCSS
 * CSSselect
 * LXML
 
+
 ```
     git clone https://github.com/T-800/Markdown-extensions.git
 
-    cp data ~/.data
+    cp -r data ~/.data
 
     sudo cp ./mdx.py /usr/bin/mdx
 
@@ -56,5 +59,3 @@ Le fichier ```out.pdf``` est optionnel. s'il n'est pas mentioné le fichier de s
 ```
     mdx --html fichier.md [out.html]
 ```
-
-Le fichier ```out.html``` est optionnel. s'il n'est pas mentioné le fichier de sortie aura le meme nom que le fichier d'entré
